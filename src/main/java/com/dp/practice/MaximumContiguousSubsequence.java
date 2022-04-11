@@ -1,5 +1,7 @@
 package com.dp.practice;
 
+import java.util.Arrays;
+
 public class MaximumContiguousSubsequence {
 
     // brute force
@@ -106,5 +108,27 @@ public class MaximumContiguousSubsequence {
         }
         return Math.max(a[idx] + maxSumNo2ContinuousRec(a, idx + 2),
                 maxSumNo2ContinuousRec(a, idx + 1));
+    }
+
+    private int maxSumNo2ContinuousRecDP(int[] a, int idx) {
+        if (a.length == 0) {
+            return -1;
+        }
+        if (a.length == 1) {
+            return a[0];
+        }
+        if (a.length == 2) {
+            return Math.max(a[0], a[1]);
+        }
+
+        int[] dp = new int[a.length];
+        dp[0] = a[0];
+        dp[1] = Math.max(a[0], a[1]);
+
+        for (int i = 2; i < a.length; i++) {
+            dp[i] = Math.max(a[i] + dp[i - 2], dp[i - 1]);
+        }
+
+        return Arrays.stream(dp).max().getAsInt();
     }
 }
