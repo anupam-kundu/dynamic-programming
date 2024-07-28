@@ -1,5 +1,7 @@
 package com.dp.practice;
 
+import java.util.Arrays;
+
 /**
  * LIS[i] = longest increasing subsequence till ith element from 0
  */
@@ -8,9 +10,9 @@ public class LongestIncreasingSubsequence {
     public int longestIncreasingSubsequence(int[] arr) {
         int[] lis = new int[arr.length];
         int max = 0;
-        for (int i = 0; i < arr.length; i++) {
-            lis[i] = 1;
-        }
+//        for (int i = 0; i < arr.length; i++) {
+//            lis[i] = 1;
+//        }
         for (int i = 1; i < arr.length; i++) {
             for (int j = 0; j < i; j++) {
                 if (arr[i] > arr[j]) {
@@ -19,6 +21,7 @@ public class LongestIncreasingSubsequence {
             }
         }
 
+        System.out.println(Arrays.toString(lis));
         for (int m : lis) {
             max = Math.max(max, m);
         }
