@@ -7,7 +7,7 @@ import java.util.Map;
  * @author Anupam
  * <p>
  * minimum number of coins to make M
- *
+ * <p>
  * check metrix approach
  * i -> coins available in soted order
  * j -> total value
@@ -55,9 +55,34 @@ public class CoinChange {
         return min;
     }
 
+    private static void minCoinsDpMatrix(int totalChange) {
+        int[][] dp = new int[COINS.length][totalChange + 1];
+
+        for (int i = 0; i < COINS.length; i++) {
+            for (int j = 1; j <= totalChange; j++) {
+                if (j - COINS[i] >= 0) { // current ith idx coin can be added
+                    int excludedCurrent = i > 0 ? dp[i - 1][j] : 0;
+                    int includedCurrent = 1 + dp[i][j - COINS[i]];
+                    dp[i][j] = excludedCurrent == 0 ? includedCurrent : Math.min(excludedCurrent, includedCurrent);
+                } else { // current coin can not be added
+                    dp[i][j] = i > 0 ? dp[i - 1][j] : 0;
+                }
+            }
+        }
+
+        // Print all elements of the 2D array
+        for (int i = 0; i < dp.length; i++) { // Iterate over rows
+            for (int j = 0; j < dp[i].length; j++) { // Iterate over columns
+                System.out.print(dp[i][j] + " "); // Print element with a space
+            }
+            System.out.println(); // Move to the next line after each row
+        }
+    }
+
 
     public static void main(String[] args) {
         System.out.println(minCoins(40));
         System.out.println(minCoinsDp(40));
+        minCoinsDpMatrix(80);
     }
 }
