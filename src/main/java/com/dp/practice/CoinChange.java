@@ -8,7 +8,7 @@ import java.util.Map;
  * <p>
  * minimum number of coins to make M
  * <p>
- * check metrix approach
+ * check matrix approach
  * i -> coins available in soted order
  * j -> total value
  * T[i][j] = MIN(T[i-1][j], 1 + T[i][j-v(i)]) if (j-v(i)) >= 0 else T[i-1][j]

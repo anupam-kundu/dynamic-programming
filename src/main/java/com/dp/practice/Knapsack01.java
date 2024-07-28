@@ -52,4 +52,8 @@ public class Knapsack01 {
 
 		return dp[val.length][wt.length];
 	}
+
+	private static void MaxKnapsack01DPMatrix() {
+
+	}
 }
