@@ -16,6 +16,10 @@ import java.util.stream.IntStream;
  * 12345 -> (1+2+3+4+5) & (12 + 3+4+5) & (1+23+4+5) = 3
  * 12 -> 12 & 1+2 = 2
  * 02 -> 0
+ *
+ * combination of number with length <= 2
+ * discard the combination if any element is not in dictionary
+ *
  */
 public class DecodeString {
 
