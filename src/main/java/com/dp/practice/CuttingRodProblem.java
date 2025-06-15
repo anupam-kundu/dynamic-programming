@@ -32,37 +32,40 @@ public class CuttingRodProblem {
         }
         for (int i = 1; i < cutLength.length; i++) {
             for (int j = 1; j <= totalLength; j++) {
-                if(cutLength[i] > j) { // can not select current element
-                    dpArr[i][j] = dpArr[i-1][j];
+                if (cutLength[i] > j) { // can not select current element
+                    dpArr[i][j] = dpArr[i - 1][j];
                 } else { // current element can be selected
                     dpArr[i][j] = Math.max(
-                            dpArr[i-1][j], // not taking current element
+                            dpArr[i - 1][j], // not taking current element
                             price[i] + dpArr[i][j - cutLength[i]] // taking the current element
                     );
                 }
             }
         }
 
-        System.out.println("Max value : "+dpArr[cutLength.length-1][totalLength]);
+        System.out.println("Max value : " + dpArr[cutLength.length - 1][totalLength]);
 
         for (int i = 1; i < cutLength.length; i++) {
             for (int j = 1; j <= totalLength; j++) {
-                System.out.print("  "+dpArr[i][j]);
+                System.out.print("  " + dpArr[i][j]);
             }
             System.out.println();
         }
         System.out.println(" get the rod lengths");
-        for (int i = 1; i < cutLength.length; i++) {
-            for (int j = 1; j <= totalLength; j++) {
-
+        for (int i = cutLength.length - 1, j = totalLength; i > 0 && j > 0; ) {
+            if (dpArr[i][j] == dpArr[i - 1][j]) {
+                i--;
+            } else {
+                System.out.println(" Found rod at index " + i + " value " + cutLength[i] + " price " + price[i]);
+                j = j - price[i];
             }
         }
 
     }
 
     public static void main(String[] args) {
-        int [] length = new int[]{0, 1  , 2  , 3  , 4  , 5 ,  6  , 7  , 8};
-        int [] price = new int[]{0, 1  , 5 ,  8 ,  9  ,10,  17,  17,  20};
+        int[] length = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+        int[] price = new int[]{0, 1, 5, 8, 9, 10, 17, 17, 20};
 
         maxCutLength(length, price, 22);
     }
