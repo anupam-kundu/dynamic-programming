@@ -12,6 +12,9 @@ import java.util.Map;
  * i -> coins available in soted order
  * j -> total value
  * T[i][j] = MIN(T[i-1][j], 1 + T[i][j-v(i)]) if (j-v(i)) >= 0 else T[i-1][j]
+ *
+ *
+ * Coin Change total ways
  */
 public class CoinChange {
 
@@ -84,5 +87,49 @@ public class CoinChange {
         System.out.println(minCoins(40));
         System.out.println(minCoinsDp(40));
         minCoinsDpMatrix(80);
+    }
+
+    /**
+     * Coin Change - Count Ways to Make Sum
+     *
+     *
+     *
+     * Given an integer array of coins[] of size n representing different types of denominations and an integer sum,
+     * the task is to count all combinations of coins to make a given value sum.
+     * Note: Assume that you have an infinite supply of each type of coin.
+     *
+     * KnapSack repetition with modification
+     *
+     * number of ways till 0 to ith coins for sum j
+     * dpArr[i][j] = dpArr[i-1][j] + dpArr[i][j-coins[i]]  if (j-coins[i] > 0) else dpArr[i-1][j]
+
+     */
+    private static int coinChangeTotalWaysDpMatrix(int[] coins, int sum) {
+        int n = coins.length;
+
+        // 2d dp array where n is the number of coin
+        // denominations and sum is the target sum
+        int[][] dp = new int[n + 1][sum + 1];
+
+        // Represents the base case where the target sum is 0,
+        // and there is only one way to make change: by not
+        // selecting any coin
+        dp[0][0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= sum; j++) {
+
+                // Add the number of ways to make change without
+                // using the current coin
+                dp[i][j] = dp[i - 1][j];
+
+                if ((j - coins[i - 1]) >= 0) {
+
+                    // Add the number of ways to make change
+                    // using the current coin
+                    dp[i][j] += dp[i][j - coins[i - 1]];
+                }
+            }
+        }
+        return dp[n][sum];
     }
 }
